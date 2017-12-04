@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 2.1.3-Spring命名空间: aop beans context jee jms lang mvc oxm tx util -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util
+	    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- <util:list>元素创建了一个java.util.List 类型的Bean -->
+	<util:list id="cities">
+	   <bean class="com.habuma.spel.cities.City" 
+	            p:name="Chicago" p:state="IL" p:population="2853114" />
+	   <bean class="com.habuma.spel.cities.City" 
+	            p:name="Atlanta" p:state="GA" p:population="537958" />
+	   <bean class="com.habuma.spel.cities.City" 
+	            p:name="Dallas" p:state="TX" p:population="1279910" />
+	</util:list>
+	
+	<bean id="city" class="com.habuma.spel.cities.Cities">
+	    <!-- 集合中第3个城市 -->
+	    <property name="choseCity" value="#{cities[2]}" />
+	    <!-- 集合中人口大于100000的城市 -->
+	    <property name="bigCities" value="#{cities.?[population gt 100000]}" />
+	    <!-- 查询第一个符合条件的大城市 -->
+	    <property name="aBigCities" value="#{cities.^[population gt 100000]}" />
+	    <!-- 查询最后一个符合条件的大城市 -->
+	    <!-- <property name="aBigCities" value="#{cities.$[population gt 100000]}" /> -->
+	    
+	    <!-- 城市名称的集合 -->
+	    <property name="cityNames" value="#{cities.![name]}" />
+    </bean>
+
+</beans>

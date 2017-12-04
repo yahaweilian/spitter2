@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+		default-init-method="turnOnLights"
+		default-destroy-method="turnOffLights"
+	    >
+	    
+	<bean id="duke" class="com.springinaction.springidol.Juggler"/>
+	
+	<!-- 通过使用factory-method 来将单例类配置为bean -->
+	<bean id="theStage" class="com.springinaction.springidol.Stage" factory-method="getInstance"/>
+	    
+	 <!-- Spring Bean 默认是单例的，如果不想单例的话，可以用scope="prototype"来限定 ，意思是此类可以被实例化任意次-->   
+	 <bean id="ticket" class="com.springinaction.springidol.Ticket" scope="prototype"/>
+	 
+	 <!-- auditorium Bean实例化后会立即调用turnOnLights() 方法,该Bean 从容器移除和销毁前会调用turnOffLights()方法 ,当然可以在<beans 里为所有的Bean设置默认初始化方法-->
+	 <bean id="auditorium" class="com.springinaction.springidol.Auditorium" 
+	     init-method="turnOnLights"
+	     destroy-method="turnOffLights"/>
+	  
+	  <bean id="kenny" class="com.springinaction.springidol.Instrumentalist" 
+	         p:song = "Jingle Bells"
+	         p:instrument-ref = "saxophone">
+	      <!-- property通过调用属性的setter方法来注入值 -->
+	     <!--  <property name="song" value="Jingle Bells"/> -->
+	      
+	      <!-- Spring 将根据Bean属性的类型自动判断 value 值的正确类型 -->
+	    <!--   <property name="age" value="37"/> -->
+	      
+	     <!--  <property name="instrument" ref="saxophone" /> -->
+	      
+	      <!-- 内部Bean ,kenny的独有的saxophone,不与他人共用 -->
+	      <!-- <property name="instrument">
+	          <bean class="com.springinaction.springidol.Saxophone"></bean>
+	      </property> -->
+	  </bean>
+	  
+	  <bean id="sonnet29" class="com.springinaction.springidol.Sonnet29"/>
+	  <bean id="saxophone" class="com.springinaction.springidol.Saxophone" />
+	  <bean id="piano" class="com.springinaction.springidol.Piano"/>
+	    
+	  <bean id="poeticDuke" class="com.springinaction.springidol.PoeticJuggler">
+	       <constructor-arg value="15"/>
+	       <!-- <constructor-arg ref="sonnet29"/> -->
+	       
+	       <!-- 内部bean 并不仅限于setter注入，我们还可以把内部Bean装配到构造方法的入参中.内部Bean的缺点影响xml的可读性，和不可复用-->
+	       <constructor-arg>
+	          <bean class="com.springinaction.springidol.Sonnet29"/>
+	       </constructor-arg>
+	  </bean>  
+	    
+	    
+	   <bean id="hank" class="com.springinaction.springidol.OneManBank">
+	       <property name="instruments">
+	       <!-- 如果Bean 的属性类型为数组类型或java.util.Collection接口的任意实现，都可以使用<list>元素 -->
+	          <!--  <list>
+	              <ref bean="piano"/>
+	              <ref bean="saxophone"/>
+	           </list> -->
+	       <!-- 同样可以使用<set>元素来装配集合类型或数组类型的属性，但要确保list成员唯一 -->
+	           <set>
+	              <ref bean="piano"/>
+	              <ref bean="saxophone"/>
+	           </set>
+	       </property>
+	       <property name="instruments2">
+	           <map>
+	               <entry key="PIANO" value-ref="piano"/>
+	               <entry key="SAXOPHONE" value-ref="saxophone"/>
+	           </map>
+	       </property>
+	   </bean> 
+	    
+ </beans>
