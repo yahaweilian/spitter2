@@ -19,4 +19,9 @@ public class BraveKnight implements Knight {
 		quest.embark();
 	}
 
+	public void setQuest(Quest quest) {
+		this.quest = quest;
+	}
+
+	
 }

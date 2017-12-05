@@ -21,11 +21,11 @@
 	
 	<bean id="city" class="com.habuma.spel.cities.Cities">
 	    <!-- 集合中第3个城市 -->
-	    <property name="choseCity" value="#{cities[2]}" />
+	    <property name="chosenCity" value="#{cities[2]}" />
 	    <!-- 集合中人口大于100000的城市 -->
 	    <property name="bigCities" value="#{cities.?[population gt 100000]}" />
 	    <!-- 查询第一个符合条件的大城市 -->
-	    <property name="aBigCities" value="#{cities.^[population gt 100000]}" />
+	    <property name="aBigCity" value="#{cities.^[population gt 100000]}" />
 	    <!-- 查询最后一个符合条件的大城市 -->
 	    <!-- <property name="aBigCities" value="#{cities.$[population gt 100000]}" /> -->
 	    

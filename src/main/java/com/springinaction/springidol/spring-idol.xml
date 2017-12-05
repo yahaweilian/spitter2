@@ -9,9 +9,16 @@
 		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
 		default-init-method="turnOnLights"
 		default-destroy-method="turnOffLights"
+		default-autowire="no"
+		
 	    >
-	    
-	<bean id="duke" class="com.springinaction.springidol.Juggler"/>
+	<!-- 默认情况下default-autowire被设置为no,标识所有Bean都不使用自动装配，除非Bean自己配置了aurowire属性，其作用范围为当前配置文件，而非Spring容器里
+	  所有Bean，所以在不同.xml中可以配置不同的default-autowire -->    
+	 
+	 <!-- 自动装配可以和显示装配混用，显示装配优先 -->
+	 
+	<!-- constructor自动装配：根据已经定义的Bean选择匹配的构造器来装配，这里使用PoeticJuggler(sonnet29) -->  
+	<bean id="duke" class="com.springinaction.springidol.Juggler" autowire="constructor"/>
 	
 	<!-- 通过使用factory-method 来将单例类配置为bean -->
 	<bean id="theStage" class="com.springinaction.springidol.Stage" factory-method="getInstance"/>
@@ -23,7 +30,12 @@
 	 <bean id="auditorium" class="com.springinaction.springidol.Auditorium" 
 	     init-method="turnOnLights"
 	     destroy-method="turnOffLights"/>
-	  
+	 
+	 <bean id="sonnet29" class="com.springinaction.springidol.Sonnet29"/>
+	  <!-- primary默认为true,byType自动装配同种类型时用来设置首选项 -->
+	  <bean id="saxophone" class="com.springinaction.springidol.Saxophone" primary="false" />
+	  <bean id="piano" class="com.springinaction.springidol.Piano"/>
+	   
 	  <bean id="kenny" class="com.springinaction.springidol.Instrumentalist" 
 	         p:song = "Jingle Bells"
 	         p:instrument-ref = "saxophone">
@@ -41,10 +53,18 @@
 	      </property> -->
 	  </bean>
 	  
-	  <bean id="sonnet29" class="com.springinaction.springidol.Sonnet29"/>
-	  <bean id="saxophone" class="com.springinaction.springidol.Saxophone" />
-	  <bean id="piano" class="com.springinaction.springidol.Piano"/>
-	    
+	  <!-- byName自动装配：为属性自动装配ID与该属性的名字相同的Bean，这里没有名称为instrument的bean ，但我们可以显示的配置instrument-->
+	   <bean id="kenny2" class="com.springinaction.springidol.Instrumentalist" autowire="byName" >
+	       <property name="song" value="Jingle Bells"/>
+	       <property name="instrument" ref="saxophone" />
+	   </bean>
+	   <!-- byType自动装配：Spring会寻找哪一个Bean的类型与属性的类型相匹配,这里有两个Instrument类型的bean -->
+	   <bean id="kenny3" class="com.springinaction.springidol.Instrumentalist" autowire="byType" >
+	       <property name="song" value="Jingle Bells"/>
+	       <!-- 将属相装配为null值 -->
+	       <property name="instrument"><null/></property>
+	   </bean>
+	   
 	  <bean id="poeticDuke" class="com.springinaction.springidol.PoeticJuggler">
 	       <constructor-arg value="15"/>
 	       <!-- <constructor-arg ref="sonnet29"/> -->
@@ -55,8 +75,7 @@
 	       </constructor-arg>
 	  </bean>  
 	    
-	    
-	   <bean id="hank" class="com.springinaction.springidol.OneManBank">
+	   <bean id="hank" class="com.springinaction.springidol.OneManBand">
 	       <property name="instruments">
 	       <!-- 如果Bean 的属性类型为数组类型或java.util.Collection接口的任意实现，都可以使用<list>元素 -->
 	          <!--  <list>

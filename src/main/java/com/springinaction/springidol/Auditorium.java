@@ -11,14 +11,14 @@ public class Auditorium {
 	 * ¿ªµÆ
 	 */
 	public void turnOnLights(){
-		
+		System.out.println("trunOnLights!");
 	}
 	
 	/**
 	 * ¹ØµÆ
 	 */
 	public void turnOffLights(){
-		
+		System.out.println("turnOffLights!");
 	}
 	
 }

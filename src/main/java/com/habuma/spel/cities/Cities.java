@@ -1,5 +1,7 @@
 package com.habuma.spel.cities;
 
+import java.util.Arrays;
+
 /**
  * ³ÇÊÐ×é
  * @author Administrator
@@ -12,7 +14,7 @@ public class Cities {
 	private City chosenCity;
     private City[] bigCities;
     private City aBigCity;
-	private String cityNames[];
+	private String[] cityNames;
 	
 	public String[] getCityNames() {
 		return cityNames;
@@ -45,5 +47,12 @@ public class Cities {
 	public void setChosenCity(City chosenCity) {
 		this.chosenCity = chosenCity;
 	}
+
+	@Override
+	public String toString() {
+		return "Cities [chosenCity=" + chosenCity + ", bigCities=" + Arrays.toString(bigCities) + ", aBigCity="
+				+ aBigCity + ", cityNames=" + Arrays.toString(cityNames) + "]";
+	}
+	
 	
 }
