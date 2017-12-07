@@ -21,9 +21,7 @@
 	<!-- <context:annotation-config /> -->
 	<!-- <context:component-scan>元素除了完成和<context:annotation-config>一样的工作,还允许Spring自动检测Bean和定义Bean-->
 	<!-- 可检测：@Component,@Controller,@Repository,@Service -->
-	<context:component-scan 
-	      base-package="com.springinaction.springidol">
-	</context:component-scan>
+	<!-- <context:component-scan base-package="com.springinaction.springidol" /> -->
 	
 	<!-- Data Source definition -->
     <!--DS1 <jee:jndi-lookup>可用来检索JNDI中的任何对象，resource-ref="true"，给定的jndi-name将会自动添加java:comp/env/前缀  -->
@@ -86,25 +84,6 @@
     <context:component-scan base-package="com.habuma.spitter.persistence" />
     <!-- 添加Hibernate 的异常转换-->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-    <!-- ③容器管理类型的JPA -->
-    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource_jdbc"/>
-         <!-- jpaVendorAdapter 指的是使用哪一个厂商的JPA实现 -->
-        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-    </bean>
-    <!-- Hibernate的JPA实现 -->
-    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-       <property name="database" value="HSQL" />
-       <property name="showSql" value="true"/>
-       <property name="generateDdl" value="false"/>
-       <property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect"/>
-    </bean>
-    <!-- 用于检测@PersistenceContext注解 -->
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-    <!-- 如果Spring应用程序部署在应用服务器中，EntityManagerFactory可能已被Spring创建好了并置于JNDI中等待查询 -->
-    <jee:jndi-lookup id="emf2" jndi-name="persistence/spitterPU"/>
-    <!-- 应用程序管理类型的JPA -->
-    <bean id="emf3" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-       <property name="persistenceUnitName" value="spitterPU"/>
-    </bean>
+    
+    
 </beans>
