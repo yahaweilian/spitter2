@@ -4,8 +4,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-	<display-name>Archetype Created Web Application</display-name>
+	<display-name>spitter</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 	
+	<!-- Spring MVC -->
 	<!-- 默认情况下DispatcherServlet会尝试从spitter-servlet.xml文件加载应用上下文 -->
 	<servlet>
 	    <servlet-name>spitter</servlet-name>
@@ -27,8 +31,10 @@
 	<context-param>
 	    <param-name>contextConfigLocation</param-name>
 	    <param-value>
-	         classpath:persistence-context.xml
-	         classpath:dataSource-context.xml
+	         /WEB-INF/spitter-security.xml,
+	         classpath:persistence-context.xml,
+	         classpath:dataSource-context.xml,
+	         classpath:transaction-context.xml
 	    </param-value>
 	</context-param>
 </web-app>

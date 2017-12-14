@@ -25,7 +25,7 @@ public class SpitterServiceImpl implements SpitterService {
 
 	/* (non-Javadoc)
 	 * @see com.habuma.spitter.service.SpitterService#addSpitter(com.habuma.spitter.domain.Spitter)
-	 * ´«²¥ĞĞÎª±»ÉèÖÃÎªREQUIRED£¬ÒªÇó±ØĞëÔÚÊÂÎñÖĞÔËĞĞ
+	 * ä¼ æ’­è¡Œä¸ºè¢«è®¾ç½®ä¸ºREQUIREDï¼Œè¦æ±‚å¿…é¡»åœ¨äº‹åŠ¡ä¸­è¿è¡Œ
 	 */
 	@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 	@Override

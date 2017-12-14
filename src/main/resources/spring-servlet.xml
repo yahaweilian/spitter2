@@ -29,7 +29,7 @@
 	<!-- <mvc:resources>:静态资源处理器 -->
     <!-- mapping="/resources/** 表明路径必须以/resources开头，其映射的位置为应用程序根目录下的/resources目录-->
 	<mvc:resources location="/resources/*" mapping="/resources/**" />
-	<context:component-scan base-package="com.hubuma.spitter.mvc" />
+	<context:component-scan base-package="com.hubuma.spitter" />
 	
 	<!-- 简单的视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -108,7 +108,7 @@
         </property>
     </bean>
     <!-- 扫描被@Repository标注的HibernateSpitterDao.class -->
-    <context:component-scan base-package="com.habuma.spitter.persistence" />
+    <!-- <context:component-scan base-package="com.habuma.spitter.persistence" /> -->
     <!-- 添加Hibernate 的异常转换-->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
     <!-- ③容器管理类型的JPA -->

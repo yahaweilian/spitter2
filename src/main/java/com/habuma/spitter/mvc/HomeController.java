@@ -7,9 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.habuma.spitter.domain.Spittle;
 import com.habuma.spitter.service.SpitterService;
-import com.habuma.spitter.service.SpittleService;
 
 /**
  * @author Administrator
