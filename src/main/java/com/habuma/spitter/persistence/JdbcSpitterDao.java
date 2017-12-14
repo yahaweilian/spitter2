@@ -46,5 +46,12 @@ public class JdbcSpitterDao implements SpitterDao {
 		
 		return 0;
 	}
+
+	@Override
+	public Object getRecentSpittles(int pageNums) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

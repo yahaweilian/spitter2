@@ -1,7 +1,7 @@
 package com.springinaction.knights;
 
 /**
- * ÍÀÁúÇëÇó
+ * å± é¾™è¯·æ±‚
  * @author Administrator
  *
  */
@@ -9,7 +9,7 @@ public class SlayDragonQuest implements Quest {
 
 	@Override
 	public void embark() throws QuestException {
-		System.out.println("ÍÀÁú");
+		System.out.println("å± é¾™");
 
 	}
 

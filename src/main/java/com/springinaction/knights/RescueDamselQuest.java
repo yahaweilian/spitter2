@@ -2,16 +2,12 @@ package com.springinaction.knights;
 
 /**
  * @author Administrator
- * 营救少女请求
+ * 鎷晳灏戝コ璇锋眰
  */
 public class RescueDamselQuest implements Quest{
 
-	/**
-	 * 行动
-	 * @throws QuestException
-	 */
 	public void embark() throws QuestException{
-		System.out.println("营救少女");
+		System.out.println("鎷晳灏戝コ");
 	}
 
 }

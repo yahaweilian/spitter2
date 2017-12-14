@@ -14,4 +14,10 @@ public interface SpitterDao {
 	 * @param spitter
 	 */
 	void addSpitter(Spitter spitter);
+
+	/**
+	 * 获取最近的spittles
+	 * @param pageNums
+	 */
+	Object getRecentSpittles(int pageNums);
 }

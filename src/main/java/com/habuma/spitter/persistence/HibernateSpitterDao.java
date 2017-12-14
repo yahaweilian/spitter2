@@ -39,4 +39,11 @@ public class HibernateSpitterDao implements SpitterDao {
 	public Spitter getSpitterById(long id){
 		return (Spitter) currentSession().get(Spitter.class, id);
 	}
+
+	@Override
+	public Object getRecentSpittles(int pageNums) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+   <persistence-unit name="spitterPU">
+        <class>com.habuma.spitter.domain.Spitter</class>
+        <class>com.habuma.spitter.domain.Spittle</class>
+        <properties>
+           <property name="jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
+           <property name="jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+           <property name="jdbc.user" value="spitter"/>
+           <property name="jdbc.password" value="spitter"/>
+           <property name="eclipselink.weaving" value="false"/> 
+        </properties>
+   </persistence-unit>
+</persistence>

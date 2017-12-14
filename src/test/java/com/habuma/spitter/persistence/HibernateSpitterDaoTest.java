@@ -9,9 +9,13 @@ import com.habuma.spitter.domain.Spitter;
 
 public class HibernateSpitterDaoTest {
 
-	@Autowired
-	HibernateSpitterDao hibernateSpitterDao;
 	
+	HibernateSpitterDao hibernateSpitterDao;
+	@Autowired
+	public void setHibernateSpitterDao(HibernateSpitterDao hibernateSpitterDao) {
+		this.hibernateSpitterDao = hibernateSpitterDao;
+	}
+
 	@Test
 	public void testHibernateSpitterDao() {
 		fail("Not yet implemented");

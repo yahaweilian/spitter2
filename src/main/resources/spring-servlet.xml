@@ -3,9 +3,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" 
 	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/context
@@ -15,17 +17,40 @@
 		http://www.springframework.org/schema/mvc
 	    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
 	    http://www.springframework.org/schema/jee
-	    http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+	    http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+	    http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <!-- 启用注解装配 -->
-	<!-- <context:annotation-config /> -->
+    <context:annotation-config />
 	<!-- <context:component-scan>元素除了完成和<context:annotation-config>一样的工作,还允许Spring自动检测Bean和定义Bean-->
 	<!-- 可检测：@Component,@Controller,@Repository,@Service -->
-	<context:component-scan 
-	      base-package="com.springinaction.springidol">
-	</context:component-scan>
+	<context:component-scan base-package="com.springinaction.springidol" />
+	<!-- <mvc:resources>:静态资源处理器 -->
+    <!-- mapping="/resources/** 表明路径必须以/resources开头，其映射的位置为应用程序根目录下的/resources目录-->
+	<mvc:resources location="/resources/*" mapping="/resources/**" />
+	<context:component-scan base-package="com.hubuma.spitter.mvc" />
 	
-	<!-- Data Source definition -->
+	<!-- 简单的视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	   <!-- 因home.jsp里使用了JSTL标签,替换InternalResourceView为JstlView -->
+	   <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+	   <property name="prefix" value="/WEB-INF/views" />
+	   <property name="suffix" value=".jsp"/>
+	</bean>
+	<!-- Tiles视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver" />
+	<!-- 通过TilesConfigurer来查找Tiles定义的事情 -->
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/views/**/views.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!--1 Data Source definition -->
     <!--DS1 <jee:jndi-lookup>可用来检索JNDI中的任何对象，resource-ref="true"，给定的jndi-name将会自动添加java:comp/env/前缀  -->
     <jee:jndi-lookup id="dataSource_jndi" jndi-name="/jdbc/SpitterDS" resource-ref="true" />
     <!--DS2 使用DBCP数据源连接池 -->
@@ -46,7 +71,7 @@
 		<property name="password" value="spitter" />
 	</bean>
 
-    <!-- 访问数据 -->
+    <!--2 访问数据 -->
     <!--① JDBC模板：SimpleJdbcTemplate.模板还可捕获平台相关异常，"转化"成Spring的非检查型异常 -->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
         <constructor-arg ref="dataSource_jdbc" />
@@ -58,16 +83,16 @@
        <!--  <property name="dataSource" ref="dataSource_jdbc" /> -->
     </bean>
     <!--② 集成Hibernate:Session 工厂 -->
-    <bean id="sessionFactory2" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <bean id="sessionFactory_HL" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource_dbcp" />
         <property name="mappingResources">
            <list>
-              <value>Spitter.hbm.xml</value>
+              <value>com/habuma/spitter/domain/Spitter.hbm.xml</value>
            </list>
         </property>
         <property name="hibernateProperties">
           <props>
-            <prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
+            <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
           </props>
         </property>
     </bean>
@@ -78,7 +103,7 @@
         <property name="packagesToScan" value="com.habuma.spitter.domain" />
         <property name="hibernateProperties">
           <props>
-            <prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
+            <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
           </props>
         </property>
     </bean>
@@ -102,9 +127,41 @@
     <!-- 用于检测@PersistenceContext注解 -->
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
     <!-- 如果Spring应用程序部署在应用服务器中，EntityManagerFactory可能已被Spring创建好了并置于JNDI中等待查询 -->
-    <jee:jndi-lookup id="emf2" jndi-name="persistence/spitterPU"/>
+    <!-- <jee:jndi-lookup id="emf2" jndi-name="persistence/spitterPU"/> -->
     <!-- 应用程序管理类型的JPA -->
-    <bean id="emf3" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+    <!-- <bean id="emf3" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
        <property name="persistenceUnitName" value="spitterPU"/>
+    </bean> -->
+    
+    <!-- 3 事务管理 -->
+    <!-- ① JDBC事务管理 -->
+    <bean id="transactionManager_jdbc" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+       <!-- 其是通过java.sql.Connection来管理事务，而Connection是通过DataSource获得的 -->
+       <property name="dataSource" ref="dataSource_jdbc"/>
     </bean>
+    <!-- ② Hibernate 事务 -->
+    <bean id="transactionManager_H" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+       <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <!-- ③ JPA 事务 -->
+    <bean id="transactionManager_jpa" class="org.springframework.orm.jpa.JpaTransactionManager">
+       <property name="entityManagerFactory" ref="emf"/>
+    </bean>
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect" />
+    
+    <!-- 事务声明advice:事务通知/AOP通知。如果事务管理器Bean的id不为 transactionManager,则需要明确指定-->
+    <!-- advisor:事务通知器。AOP切点 -->
+    <!-- <tx:advice id="txAdvice" transaction-manager="transactionManager_H">
+       <tx:attributes>
+          <tx:method name="save*" propagation="REQUIRED"/>
+          <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+       </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:advisor pointcut="excution(* *..SpitterService.*(..))" advice-ref="txAdvice"/>
+    </aop:config> -->
+    
+    <!-- 如果使用注解可以加下面一行 ,可以指定事务管理器，也可以去掉-->
+    <tx:annotation-driven transaction-manager="transactionManager_H" />
+    
 </beans>

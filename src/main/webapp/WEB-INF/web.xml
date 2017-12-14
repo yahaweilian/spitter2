@@ -5,4 +5,30 @@
         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
 	<display-name>Archetype Created Web Application</display-name>
+	
+	<!-- 默认情况下DispatcherServlet会尝试从spitter-servlet.xml文件加载应用上下文 -->
+	<servlet>
+	    <servlet-name>spitter</servlet-name>
+	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- 映射到/,比映射到/*、/app和*htm 要好 -->
+	<servlet-mapping>
+	    <servlet-name>spitter</servlet-name>
+	    <url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 加载其他配置文件到Spring应用上下文中(spitter-servlet.xml) -->
+	<listener>
+	   <listener-class>
+	      org.springframework.web.context.ContextLoaderListener
+	   </listener-class>
+	</listener>
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>
+	         classpath:persistence-context.xml
+	         classpath:dataSource-context.xml
+	    </param-value>
+	</context-param>
 </web-app>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	    http://www.springframework.org/schema/jee
+	    http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+<!--1 Data Source definition -->
+    <!--DS1 <jee:jndi-lookup>可用来检索JNDI中的任何对象，resource-ref="true"，给定的jndi-name将会自动添加java:comp/env/前缀  -->
+    <!-- <jee:jndi-lookup id="dataSource_jndi" jndi-name="/jdbc/SpitterDS" resource-ref="true" /> -->
+    <!--DS2 使用DBCP数据源连接池 -->
+	<bean id="dataSource_dbcp" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username" value="spitter" />
+		<property name="password" value="spitter" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="10" />
+	</bean>
+    <!-- DS3 基于JDBC驱动的数据源 -->
+    <bean id="dataSource_jdbc" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!--DriverManagerDataSource:每个连接请求都会返回一个新建的连接，提供的连接没有经过池化管理，支持多线程，但牺牲性能  -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username" value="spitter" />
+		<property name="password" value="spitter" />
+	</bean>
+</beans>

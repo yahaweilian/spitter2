@@ -1,21 +1,21 @@
 package com.springinaction.springidol;
 
 /**
- * ±íÑİ´óÌü¡¢¹ÛÖÚÏ¯
+ * è§‚ä¼—å¸­
  * @author Administrator
  *
  */
 public class Auditorium {
 
 	/**
-	 * ¿ªµÆ
+	 * å¼€ç¯
 	 */
 	public void turnOnLights(){
 		System.out.println("trunOnLights!");
 	}
 	
 	/**
-	 * ¹ØµÆ
+	 * å…³ç¯
 	 */
 	public void turnOffLights(){
 		System.out.println("turnOffLights!");

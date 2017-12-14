@@ -13,7 +13,7 @@ import com.habuma.spitter.domain.Spitter;
  * @author Administrator
  *
  */
-@Repository("spitterDao")
+@Repository("jpaSpitterDao")
 @Transactional
 public class JpaSpitterDao implements SpitterDao {
 
@@ -37,4 +37,11 @@ public class JpaSpitterDao implements SpitterDao {
 	public void saveSpitter(Spitter spitter){
 		em.merge(spitter);
 	}
+
+	@Override
+	public Object getRecentSpittles(int pageNums) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
