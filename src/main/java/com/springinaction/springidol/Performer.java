@@ -1,14 +1,14 @@
 package com.springinaction.springidol;
 
 /**
- * ±íÑÝÕß
+ * è¡¨æ¼”è€…
  * @author ynding
  * 
  */
 public interface Performer {
 
 	/**
-	 * ±íÑÝ
+	 * è¡¨æ¼”
 	 * @throws PerformanceException
 	 */
 	void perform() throws PerformanceException;

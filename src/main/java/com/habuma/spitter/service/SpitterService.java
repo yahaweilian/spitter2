@@ -9,26 +9,26 @@ import com.habuma.spitter.domain.Spitter;
 public interface SpitterService {
 
 	/**
-	 * 添加spitter
+	 * 娣诲姞spitter
 	 * @param spitter
 	 */
 	void addSpitter(Spitter spitter);
 	
 	/**
-	 * 获取最近的spittles
+	 * 鑾峰彇鏈�杩戠殑spittles
 	 * @param pageNums
 	 */
 	Object getRecentSpittles(int defaultSpittlesPerPage);
 
 	/**
-	 * 根据名字获取spitter
+	 * 鏍规嵁鍚嶅瓧鑾峰彇spitter
 	 * @param username
 	 * @return
 	 */
 	Spitter getSpitter(String username);
 
 	/**
-	 * 根据名字获取spittles
+	 * 鏍规嵁鍚嶅瓧鑾峰彇spittles
 	 * @param username
 	 * @return
 	 */

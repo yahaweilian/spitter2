@@ -1,17 +1,17 @@
 package com.springinaction.springidol;
 
 /**
- * ÍûÔÂ
+ * æœ›æœˆ
  * @author Administrator
  *
  */
 public class Sonnet29 implements Poem {
 
 	private static String[] LINES = {
-			"´°Ç°Ã÷ÔÂ¹â£¬",
-			"ÒÉËÆµØÉÏËª¡£",
-			"¾ÙÍ·ÍûÃ÷ÔÂ£¬",
-			"µÍÍ·Ë¼¹ÊÏç¡£"
+			"çª—å‰æ˜æœˆå…‰ï¼Œ",
+			"ç–‘ä¼¼åœ°ä¸Šéœœã€‚",
+			"ä¸¾å¤´æœ›æ˜æœˆï¼Œ",
+			"ä½å¤´æ€æ•…ä¹¡ã€‚"
 	};
 	
 	@Override

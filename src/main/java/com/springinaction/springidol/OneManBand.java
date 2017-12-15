@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * Ò»ÈËÀÖ¶Ó
+ * ä¸€äººä¹é˜Ÿ
  * @author Administrator
  *
  */
@@ -14,8 +14,8 @@ public class OneManBand implements Performer {
 		
 	}
 	
-	private Collection<Instrument> instruments;//ÀÖÆ÷×é
-	private Map<String,Instrument> instruments2;//MapÀÖÆ÷×é
+	private Collection<Instrument> instruments;//ä¹å™¨ç»„
+	private Map<String,Instrument> instruments2;//Mapä¹å™¨ç»„
 	
 	public void setInstruments2(Map<String, Instrument> instruments2) {
 		this.instruments2 = instruments2;

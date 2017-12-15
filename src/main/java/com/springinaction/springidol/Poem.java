@@ -1,14 +1,14 @@
 package com.springinaction.springidol;
 
 /**
- * Ê«¸è
+ * è¯—æ­Œ
  * @author Administrator
  *
  */
 public interface Poem {
 	
     /**
-     * ÀÊËÐ
+     * æœ—è¯µ
      */
     void recite();
 }

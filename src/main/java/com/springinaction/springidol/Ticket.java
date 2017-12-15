@@ -1,7 +1,7 @@
 package com.springinaction.springidol;
 
 /**
- * �볡ȯ
+ * 入场券
  * @author Administrator
  *
  */

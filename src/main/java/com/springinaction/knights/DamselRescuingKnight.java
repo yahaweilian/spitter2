@@ -2,13 +2,13 @@ package com.springinaction.knights;
 
 /**
  * @author Administrator
- * ÉÙÅ®Óª¾ÈÆïÊ¿
+ * å°‘å¥³è¥æ•‘éª‘å£«
  */
 public class DamselRescuingKnight implements Knight {
 
 	private RescueDamselQuest quest;
 	
-	public DamselRescuingKnight(){ //Óë RscueDamselQuest ½ôñîºÏ£¬ÏŞÖÆÁËÕâ¸öÆïÊ¿µÄÄÜÁ¦£¬Õâ¸öÆïÊ¿Ö»ÄÜÓª¾ÈÉÙÅ®
+	public DamselRescuingKnight(){ //ä¸ RscueDamselQuest ç´§è€¦åˆï¼Œé™åˆ¶äº†è¿™ä¸ªéª‘å£«çš„èƒ½åŠ›ï¼Œè¿™ä¸ªéª‘å£«åªèƒ½è¥æ•‘å°‘å¥³
 		quest = new RescueDamselQuest(); 
 	}
 	

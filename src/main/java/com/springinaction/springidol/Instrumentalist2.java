@@ -5,35 +5,35 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
- * ÀÖÆ÷Ñİ×à¼Ò
+ * ä¹å™¨æ¼”å¥å®¶
  * @author Administrator
  *
  */
 public class Instrumentalist2 implements Performer {
 
 	/**
-	 * value Ö±½Ó×°ÅäÖµ
+	 * value ç›´æ¥è£…é…å€¼
 	 */
-	@Value("Ç§ÀïÖ®Íâ")
-	private String song;// ¸èÇú
+	@Value("åƒé‡Œä¹‹å¤–")
+	private String song;// æ­Œæ›²
 	/**
-	 * autowired ±ê×¢×Ö¶ÎÊ±£¬¿ÉÒÔ°ÑÊôĞÔµÄsetter·½·¨É¾³ı
-	 * autowired Ä¬ÈÏ¾ßÓĞÇ¿ÆõÔ¼ÌØÕ÷£¬ÆäËù±ê×¢µÄÊôĞÔ±ØĞëÊÇ¿É×°ÅäµÄ¡£¿ÉÒÔÍ¨¹ıÉèÖÃrequired=falseÀ´Ïû³ıÕâÖÖÌØÕ÷
-	 * Qualifier ×¢½â½«³¢ÊÔ×¢ÈëIDÎªpianoµÄBean
+	 * autowired æ ‡æ³¨å­—æ®µæ—¶ï¼Œå¯ä»¥æŠŠå±æ€§çš„setteræ–¹æ³•åˆ é™¤
+	 * autowired é»˜è®¤å…·æœ‰å¼ºå¥‘çº¦ç‰¹å¾ï¼Œå…¶æ‰€æ ‡æ³¨çš„å±æ€§å¿…é¡»æ˜¯å¯è£…é…çš„ã€‚å¯ä»¥é€šè¿‡è®¾ç½®required=falseæ¥æ¶ˆé™¤è¿™ç§ç‰¹å¾
+	 * Qualifier æ³¨è§£å°†å°è¯•æ³¨å…¥IDä¸ºpianoçš„Bean
 	 */
 	@Autowired(required=false)
 	@Qualifier("piano")
-	private Instrument instrument;//ÀÖÆ÷
-	private int age;//ÄêÁä
+	private Instrument instrument;//ä¹å™¨
+	private int age;//å¹´é¾„
 	
 	/**
-	 * µ±Ê¹ÓÃautowired±ê×¢¶à¸ö¹¹ÔìÆ÷Ê±£¬Spring¾Í»á´ÓËùÓĞÂú×ã×°ÅäÌõ¼şµÄ¹¹ÔìÆ÷ÖĞÑ¡ÔñÈë²Î×î¶àµÄÄÇ¸ö¹¹ÔìÆ÷
+	 * å½“ä½¿ç”¨autowiredæ ‡æ³¨å¤šä¸ªæ„é€ å™¨æ—¶ï¼ŒSpringå°±ä¼šä»æ‰€æœ‰æ»¡è¶³è£…é…æ¡ä»¶çš„æ„é€ å™¨ä¸­é€‰æ‹©å…¥å‚æœ€å¤šçš„é‚£ä¸ªæ„é€ å™¨
 	 */
 	@Autowired
 	public Instrumentalist2() {}
 	
 	/**
-	 * Autowired ¿ÉÒÔ±ê×¢¹¹ÔìÆ÷
+	 * Autowired å¯ä»¥æ ‡æ³¨æ„é€ å™¨
 	 * @param instrument
 	 */
 	@Autowired
@@ -43,7 +43,7 @@ public class Instrumentalist2 implements Performer {
 	}
 
 	/**
-	 * Ê¹ÓÃAutowired×¢½âÊ±£¬Spring»á³¢ÊÔ¶Ô¸Ã·½·¨Ö´ĞĞbyType×Ô¶¯×°Åä
+	 * ä½¿ç”¨Autowiredæ³¨è§£æ—¶ï¼ŒSpringä¼šå°è¯•å¯¹è¯¥æ–¹æ³•æ‰§è¡ŒbyTypeè‡ªåŠ¨è£…é…
 	 * @param instrument
 	 */
 	@Autowired
@@ -52,7 +52,7 @@ public class Instrumentalist2 implements Performer {
 	}
 
 	/**
-	 * Autowired ²»½öÄÜ×°Åäsetter·½·¨£¬»¹¿ÉÒÔ±ê×¢ĞèÒª×Ô¶¯×°ÅäBeanÒıÓÃµÄÈÎÒâ·½·¨ 
+	 * Autowired ä¸ä»…èƒ½è£…é…setteræ–¹æ³•ï¼Œè¿˜å¯ä»¥æ ‡æ³¨éœ€è¦è‡ªåŠ¨è£…é…Beanå¼•ç”¨çš„ä»»æ„æ–¹æ³• 
 	 * @param instrument
 	 */
 	@Autowired

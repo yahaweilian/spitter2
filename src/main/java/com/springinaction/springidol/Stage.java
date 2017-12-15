@@ -1,7 +1,7 @@
 package com.springinaction.springidol;
 
 /**
- * µ¥ÀıÀà-Í¨¹ıÊ¹ÓÃfactory-method À´½«µ¥ÀıÀàÅäÖÃÎªbean
+ * å•ä¾‹ç±»-é€šè¿‡ä½¿ç”¨factory-method æ¥å°†å•ä¾‹ç±»é…ç½®ä¸ºbean
  * @author Administrator
  *
  */
@@ -10,7 +10,7 @@ public class Stage {
 	private Stage(){}
 	
 	private static class StageSingletonHolder{
-		static Stage instance = new Stage(); //ÑÓ³Ù¼ÓÔØÊµÀı
+		static Stage instance = new Stage(); //å»¶è¿ŸåŠ è½½å®ä¾‹
 	}
 	
 	public static Stage getInstance(){

@@ -2,7 +2,7 @@ package com.springinaction.knights;
 
 
 /**
- * ÓÂ¸ÒÆïÊ¿
+ * å‹‡æ•¢éª‘å£«
  * @author Administrator
  *
  */
@@ -11,7 +11,7 @@ public class BraveKnight implements Knight {
 	private Quest quest;
 	
 	public BraveKnight(Quest quest) {
-		this.quest = quest;// ¹¹ÔìÆ÷×¢Èë quest  £¬½âñî £¬ÓÂ¸ÒÆïÊ¿¿ÉÒÔ»ØÓ¦ÈÎºÎµÄÇëÇó
+		this.quest = quest;// æ„é€ å™¨æ³¨å…¥ quest  ï¼Œè§£è€¦ ï¼Œå‹‡æ•¢éª‘å£«å¯ä»¥å›åº”ä»»ä½•çš„è¯·æ±‚
 	}
 	
 	@Override

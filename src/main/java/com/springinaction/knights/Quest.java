@@ -1,14 +1,14 @@
 package com.springinaction.knights;
 
 /**
- * 请求
+ * 璇锋眰
  * @author Administrator
  *
  */
 public interface Quest {
 
 	/**
-	 * 从事，着手
+	 * 琛屽姩
 	 */
 	void embark() throws QuestException;
 

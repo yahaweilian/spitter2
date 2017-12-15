@@ -1,14 +1,14 @@
 package com.springinaction.springidol;
 
 /**
- * ÀÖÆ÷
+ * ä¹å™¨
  * @author Administrator
  *
  */
 public interface Instrument {
 
 	/**
-	 * Ñİ×àÀÖÆ÷
+	 * è¡¨æ¼”
 	 */
 	void play();
 }

@@ -2,15 +2,15 @@ package com.springinaction.springidol;
 
 
 /**
- * ÀÖÆ÷Ñİ×à¼Ò
+ * ä¹å™¨æ¼”å¥å®¶
  * @author Administrator
  *
  */
 public class Instrumentalist implements Performer {
 
-	private String song;// ¸èÇú
-	private Instrument instrument;//ÀÖÆ÷
-	private int age;//ÄêÁä
+	private String song;// æ­Œæ›²
+	private Instrument instrument;//ä¹å™¨
+	private int age;//å¹´é¾„
 	
 	public Instrumentalist() {}
 	
