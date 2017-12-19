@@ -23,7 +23,7 @@
         <constructor-arg ref="dataSource_jdbc" />
     </bean>
     <!-- DAO -->
-    <bean id="spitterDao" class="com.habuma.spitter.persistence.JdbcSpitterDao" >
+    <bean id="jdbcSpitterDao" class="com.habuma.spitter.persistence.JdbcSpitterDao" >
          <property name="jdbcTemplate" ref="jdbcTemplate"/> 
         <!-- 或者直接配置dataSource属性，它会在其内部自动创建一个SimpleJdbcTemplate实例。就不需要明确声明 SimpleJdbcTemplate Bean了-->
        <!--  <property name="dataSource" ref="dataSource_jdbc" /> -->
@@ -38,19 +38,28 @@
         </property>
         <property name="hibernateProperties">
           <props>
-            <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+            <prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
+            <!-- 需加上 hibernate.否则会报错-->
             <prop key="hibernate.show_sql">true</prop>
           </props>
         </property>
     </bean>
-    <!-- 使用注解方式定义持久化 -->
+   <!-- 使用注解方式定义持久化 -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource_dbcp" />
         <!-- 扫描使用注解的域类 -->
         <property name="packagesToScan" value="com.habuma.spitter.domain" />
         <property name="hibernateProperties">
           <props>
-            <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+            <prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
+            <prop key="hibernate.show_sql">true</prop>
+            <prop key="hibernate.format_sql">true</prop>
+            <!-- 自动建表 -->
+            <prop key="hibernate.hbm2ddl.auto">update</prop>
+            <!-- 没有这个会报异常：No Hibernate Session bound to thread,添加之后：is not valid without active transaction -->
+            <prop key="hibernate.current_session_context_class">thread</prop>
+            <!-- <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate3.SpringSessionContext</prop> -->
+            <prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
           </props>
         </property>
     </bean>

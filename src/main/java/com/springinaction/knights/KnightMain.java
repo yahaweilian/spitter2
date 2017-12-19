@@ -7,7 +7,7 @@ public class KnightMain {
 
 	public static void main(String[] args) throws QuestException {
 		
-		//ClassPathXmlApplicationContext ÉÏÏÂÎÄÈİÆ÷¼ÓÔØÎ»ÓÚÓ¦ÓÃÏµÍ³ classpath ÏÂµÄÒ»¸ö»ò¶à¸ö XMLÎÄ¼ş
+		//ClassPathXmlApplicationContext ä¸Šä¸‹æ–‡å®¹å™¨åŠ è½½ä½äºåº”ç”¨ç³»ç»Ÿ classpath ä¸‹çš„ä¸€ä¸ªæˆ–å¤šä¸ª XMLæ–‡ä»¶
 		ApplicationContext context = new ClassPathXmlApplicationContext("com/springinaction/knights/knights.xml");
 		
 		Knight knight = (Knight) context.getBean("knight");

@@ -14,17 +14,20 @@
     <!-- mapping="/resources/** 表明路径必须以/resources开头，其映射的位置为应用程序根目录下的/resources目录-->
 	<mvc:resources location="/resources/*" mapping="/resources/**" />
 	
-	<!-- <mvc:default-servlet-handler/>  -->
+	 <!-- 将在 SpringMVC 上下文中定义一个 – DefaultServletHttpRequestHandler，它会对进入 DispatcherServlet
+           的 请求进行筛查，如果发现是没有经过映射的请求，就将该请求交由 WEB 应用服务器默认的 Servlet 处理，
+           如果不是静态资源的请求，才由 DispatcherServlet继续处理 -->
+    <mvc:default-servlet-handler/>
 	
     <mvc:annotation-driven/>
-    <context:component-scan base-package="com.hubuma.spitter" />
+    <context:component-scan base-package="com.habuma.spitter" />
     <!-- 处理器映射Bean -->
     <!-- <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping "/> -->
     <!-- 简单的视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	   <!-- 因home.jsp里使用了JSTL标签,替换InternalResourceView为JstlView -->
 	   <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-	   <property name="prefix" value="/WEB-INF/views" />
+	   <property name="prefix" value="/WEB-INF/views/" />
 	   <property name="suffix" value=".jsp"/>
 	</bean>
 	<!-- Tiles视图解析器 -->

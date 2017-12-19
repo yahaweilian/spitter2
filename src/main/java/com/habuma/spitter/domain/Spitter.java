@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -22,6 +23,7 @@ import org.hibernate.validator.constraints.Email;
  *
  */
 @Entity
+//@SequenceGenerator(name="ID_SEQ",sequenceName="SEQ_BDF_SPITTER",allocationSize=1)
 public class Spitter {
 
 	@Id

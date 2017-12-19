@@ -10,13 +10,13 @@ import com.habuma.spitter.domain.Spitter;
 public interface SpitterDao {
 
 	/**
-	 * 添加spitter
+	 * 娣诲姞spitter
 	 * @param spitter
 	 */
 	void addSpitter(Spitter spitter);
 
 	/**
-	 * 获取最近的spittles
+	 * 鏌ヨspittles
 	 * @param pageNums
 	 */
 	Object getRecentSpittles(int pageNums);

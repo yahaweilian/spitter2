@@ -16,17 +16,16 @@ import com.habuma.spitter.domain.Spitter;
  * @author Administrator
  *
  */
-@Service("spitterDao")
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+//@Service("jdbcSpitterDao")
 public class JdbcSpitterDao implements SpitterDao {
 
-	@Autowired
-	private SimpleJdbcTemplate jdbcTemplate;//数据访问模板
-	//插入spitter语句
+	private SimpleJdbcTemplate jdbcTemplate;//jdbc妯℃澘
+	//鎻掑叆spitter璇彞
 	private static String SQL_INSERT_SPITTER = 
 			"insert into spitter (username, password, fullname)"
 			+ "values (:username, :password, :fullname)";
 	
+	@Autowired
 	public void setJdbcTemplate(SimpleJdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}

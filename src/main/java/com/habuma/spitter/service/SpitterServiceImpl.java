@@ -1,11 +1,17 @@
 package com.habuma.spitter.service;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.habuma.spitter.domain.Spitter;
+import com.habuma.spitter.domain.Spittle;
 import com.habuma.spitter.persistence.SpitterDao;
 
 /**
@@ -13,29 +19,29 @@ import com.habuma.spitter.persistence.SpitterDao;
  *
  */
 @Service("spitterServiceImpl")
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class SpitterServiceImpl implements SpitterService {
 	
 	private SpitterDao hibernateSpitterDao;
-
+	
 	@Autowired
 	public SpitterServiceImpl(SpitterDao hibernateSpitterDao) {
 		this.hibernateSpitterDao = hibernateSpitterDao;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.habuma.spitter.service.SpitterService#addSpitter(com.habuma.spitter.domain.Spitter)
+	/*
 	 * 传播行为被设置为REQUIRED，要求必须在事务中运行
 	 */
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
 	public void addSpitter(Spitter spitter) {
 		hibernateSpitterDao.addSpitter(spitter);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
-	public Object getRecentSpittles(int defaultSpittlesPerPage) {
-		return hibernateSpitterDao.getRecentSpittles(defaultSpittlesPerPage);
+	public List<Spittle> getRecentSpittles(int defaultSpittlesPerPage) {
+		return (List<Spittle>) hibernateSpitterDao.getRecentSpittles(defaultSpittlesPerPage);
 	}
 
 	@Override

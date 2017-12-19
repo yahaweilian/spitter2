@@ -105,6 +105,7 @@
           <props>
             <prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
             <prop key="hibernate.show_sql">true</prop>
+            <prop key="hibernate.format_sql">true</prop>
             <!-- 自动建表 -->
             <prop key="hibernate.hbm2ddl.auto">update</prop>
             <!-- 没有这个会报异常：No Hibernate Session bound to thread,添加之后：is not valid without active transaction -->

@@ -3,18 +3,17 @@ package com.habuma.spitter.persistence;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.habuma.spitter.domain.Spitter;
 
 /**
- * JPA持久化使用的DAO
+ * JPASpitterDAO
  * @author Administrator
  *
  */
 @Repository("jpaSpitterDao")
-@Transactional
 public class JpaSpitterDao implements SpitterDao {
 
 	private static final String RECENT_SPITTLES ="SELECT s FROM Spittle s";
