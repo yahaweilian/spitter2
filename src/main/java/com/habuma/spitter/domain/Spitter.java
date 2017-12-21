@@ -3,6 +3,7 @@ package com.habuma.spitter.domain;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -23,11 +25,11 @@ import org.hibernate.validator.constraints.Email;
  *
  */
 @Entity
-//@SequenceGenerator(name="ID_SEQ",sequenceName="SEQ_BDF_SPITTER",allocationSize=1)
+@SequenceGenerator(name="ID_SEQ",sequenceName="SEQ_BDF_SPITTER",allocationSize=1)
 public class Spitter {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="ID_SEQ")
 	private long id;
 	@Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters long.")
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username must be alphanumeric with no spaces.")

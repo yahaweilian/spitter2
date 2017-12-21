@@ -22,19 +22,19 @@
 	 
     <!-- 3 事务管理 -->
     <!-- ① JDBC事务管理 -->
-    <bean id="transactionManager_jdbc" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-       <!-- 其是通过java.sql.Connection来管理事务，而Connection是通过DataSource获得的 -->
+   <!--  <bean id="transactionManager_jdbc" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+       其是通过java.sql.Connection来管理事务，而Connection是通过DataSource获得的
        <property name="dataSource" ref="dataSource_jdbc"/>
-    </bean>
+    </bean> -->
     <!-- ② Hibernate 事务 -->
     <bean id="transactionManager_H" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
        <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
     <!-- ③ JPA 事务 -->
-    <bean id="transactionManager_jpa" class="org.springframework.orm.jpa.JpaTransactionManager">
+   <!--  <bean id="transactionManager_jpa" class="org.springframework.orm.jpa.JpaTransactionManager">
        <property name="entityManagerFactory" ref="emf"/>
     </bean>
-    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect" />
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect" /> -->
     
     <!-- 事务声明advice:事务通知/AOP通知。如果事务管理器Bean的id不为 transactionManager,则需要明确指定-->
     <!-- advisor:事务通知器。AOP切点 -->

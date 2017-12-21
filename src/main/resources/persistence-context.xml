@@ -17,19 +17,22 @@
 	    http://www.springframework.org/schema/aop
 	    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
+   <!-- 扫描被@Repository标注的HibernateSpitterDao.class -->
+   <context:component-scan base-package="com.habuma.spitter" />
+   
     <!--2 访问数据 -->
     <!--① JDBC模板：SimpleJdbcTemplate.模板还可捕获平台相关异常，"转化"成Spring的非检查型异常 -->
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+   <!--  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
         <constructor-arg ref="dataSource_jdbc" />
-    </bean>
+    </bean> -->
     <!-- DAO -->
-    <bean id="jdbcSpitterDao" class="com.habuma.spitter.persistence.JdbcSpitterDao" >
-         <property name="jdbcTemplate" ref="jdbcTemplate"/> 
+  <!--   <bean id="jdbcSpitterDao" class="com.habuma.spitter.persistence.JdbcSpitterDao" >
+         <property name="jdbcTemplate" ref="jdbcTemplate"/>  -->
         <!-- 或者直接配置dataSource属性，它会在其内部自动创建一个SimpleJdbcTemplate实例。就不需要明确声明 SimpleJdbcTemplate Bean了-->
        <!--  <property name="dataSource" ref="dataSource_jdbc" /> -->
-    </bean>
+   <!--  </bean> -->
     <!--② 集成Hibernate:Session 工厂 -->
-    <bean id="sessionFactory_HL" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+   <!--  <bean id="sessionFactory_HL" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource_dbcp" />
         <property name="mappingResources">
            <list>
@@ -38,12 +41,12 @@
         </property>
         <property name="hibernateProperties">
           <props>
-            <prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
+            <prop key="dialect">org.hibernate.dialect.OracleDialect</prop> -->
             <!-- 需加上 hibernate.否则会报错-->
-            <prop key="hibernate.show_sql">true</prop>
+         <!--    <prop key="hibernate.show_sql">true</prop>
           </props>
         </property>
-    </bean>
+    </bean> -->
    <!-- 使用注解方式定义持久化 -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource_dbcp" />
@@ -51,25 +54,28 @@
         <property name="packagesToScan" value="com.habuma.spitter.domain" />
         <property name="hibernateProperties">
           <props>
-            <prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
+            <!-- <prop key="dialect">org.hibernate.dialect.HSQLDialect</prop> -->
+            <prop key="dialect">org.hibernate.dialect.OracleDialect</prop>
             <prop key="hibernate.show_sql">true</prop>
             <prop key="hibernate.format_sql">true</prop>
+            <prop key="hibernate.connection.characterEncoding">utf-8</prop> 
+            <!-- 自动提交事务，否则数据库无法添加数据 -->
+            <prop key="hibernate.connection.autocommit">true</prop>  
             <!-- 自动建表 -->
             <prop key="hibernate.hbm2ddl.auto">update</prop>
             <!-- 没有这个会报异常：No Hibernate Session bound to thread,添加之后：is not valid without active transaction -->
             <prop key="hibernate.current_session_context_class">thread</prop>
             <!-- <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate3.SpringSessionContext</prop> -->
-            <prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
+            <!--  <prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop> -->
           </props>
         </property>
     </bean>
-    <!-- 扫描被@Repository标注的HibernateSpitterDao.class -->
-  <!--   <context:component-scan base-package="com.habuma.spitter" /> -->
+  
     <!-- 添加Hibernate 的异常转换-->
    <!--  <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> -->
     <!-- ③容器管理类型的JPA -->
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource_jdbc"/>
+        <property name="dataSource" ref="dataSource_dbcp"/>
          <!-- jpaVendorAdapter 指的是使用哪一个厂商的JPA实现 -->
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
          <!-- By default, EclipseLink expects run-time weaving to be enabled -->
@@ -83,7 +89,7 @@
        <property name="database" value="HSQL" />
        <property name="showSql" value="true"/>
        <property name="generateDdl" value="false"/>
-       <property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect"/>
+       <property name="databasePlatform" value="org.hibernate.dialect.OracleDialect"/>
     </bean>
     <!-- 用于检测@PersistenceContext注解 -->
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
@@ -93,4 +99,5 @@
    <!--  <bean id="emf3" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
        <property name="persistenceUnitName" value="spitterPU"/>
     </bean> -->
+    
 </beans>
