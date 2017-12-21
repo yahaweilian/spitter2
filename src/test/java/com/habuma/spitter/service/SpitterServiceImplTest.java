@@ -27,6 +27,7 @@ public class SpitterServiceImplTest {
 	
 	@Test
 	public void testAddSpitter() {
+		
 		Spitter spitter = new Spitter();
 		spitter.setUsername("yH1");
 		spitter.setPassword("123456");

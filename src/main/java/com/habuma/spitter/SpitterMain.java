@@ -11,7 +11,7 @@ public class SpitterMain {
 
 	public static void main(String[] args) {
 		
-        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-servlet.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:spring-servlet.xml");
 		
         SpitterService spitterServiceImpl = (SpitterService) context.getBean("spitterServiceImpl");
 		
@@ -19,6 +19,8 @@ public class SpitterMain {
 		spitter.setUsername("yaha");
 		spitter.setPassword("123456");
 		spitter.setFullName("yaha ding");
+		
+		
 		spitterServiceImpl.addSpitter(spitter);
 	}
 }

@@ -44,16 +44,25 @@ public class SpitterServiceImpl implements SpitterService {
 		return (List<Spittle>) hibernateSpitterDao.getRecentSpittles(defaultSpittlesPerPage);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
 	public Spitter getSpitter(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return hibernateSpitterDao.getSpitterByName(username);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
 	public Object getSpittlesForSpitter(String username) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public void savaSpitter(Spitter spitter) {
+		
+		hibernateSpitterDao.updateSpitter(spitter);
 	}
 
 

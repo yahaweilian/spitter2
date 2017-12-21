@@ -55,7 +55,7 @@
         <property name="hibernateProperties">
           <props>
             <!-- <prop key="dialect">org.hibernate.dialect.HSQLDialect</prop> -->
-            <prop key="dialect">org.hibernate.dialect.OracleDialect</prop>
+            <prop key="dialect">org.hibernate.dialect.Oracle10gDialect</prop>
             <prop key="hibernate.show_sql">true</prop>
             <prop key="hibernate.format_sql">true</prop>
             <prop key="hibernate.connection.characterEncoding">utf-8</prop> 

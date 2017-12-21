@@ -20,4 +20,17 @@ public interface SpitterDao {
 	 * @param pageNums
 	 */
 	Object getRecentSpittles(int pageNums);
+
+	/**
+	 * 更新spitter
+	 * @param spitter
+	 */
+	void updateSpitter(Spitter spitter);
+
+	/**
+	 * 通过名字获取Spitter
+	 * @param username
+	 * @return
+	 */
+	Spitter getSpitterByName(String username);
 }

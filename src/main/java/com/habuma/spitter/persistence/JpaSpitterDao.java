@@ -43,4 +43,16 @@ public class JpaSpitterDao implements SpitterDao {
 		return null;
 	}
 
+	@Override
+	public void updateSpitter(Spitter spitter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Spitter getSpitterByName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

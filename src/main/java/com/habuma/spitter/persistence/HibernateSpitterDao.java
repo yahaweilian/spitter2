@@ -2,6 +2,7 @@ package com.habuma.spitter.persistence;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,6 @@ public class HibernateSpitterDao implements SpitterDao {
 	}
 
 	
-	
 	/**
 	 * getCurrentSession所有操作都必须放在事务中 ,否则会产生异常
 	 * @return
@@ -47,6 +47,7 @@ public class HibernateSpitterDao implements SpitterDao {
 		currentSession().save(spitter);
 	}
 
+	@Override
 	public void updateSpitter(Spitter spitter){
 		currentSession().update(spitter);
 	}
@@ -60,5 +61,21 @@ public class HibernateSpitterDao implements SpitterDao {
 		
 		return currentSession().createCriteria(Spittle.class).setMaxResults(pageNums).list();
 	}
+
+
+	@Override
+	public Spitter getSpitterByName(String username) {
+		Query query = currentSession().createQuery("from Spitter where username = :username");
+		query.setString("username", username);
+		@SuppressWarnings("unchecked")
+		List<Spitter> users = query.list();
+		if(users.size() != 0) {
+			return users.get(0);
+		} 
+		return null;
+	}
+
+
+
 
 }

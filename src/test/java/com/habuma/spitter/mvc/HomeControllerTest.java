@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.habuma.spitter.controller.HomeController;
 import com.habuma.spitter.domain.Spittle;
 import com.habuma.spitter.service.SpitterService;
 

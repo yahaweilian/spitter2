@@ -36,4 +36,11 @@ public interface SpitterService {
 	 * @return
 	 */
 	Object getSpittlesForSpitter(String username);
+
+	
+	/**
+	 * 更新 spitter
+	 * @param spitter
+	 */
+	void savaSpitter(Spitter spitter);
 }

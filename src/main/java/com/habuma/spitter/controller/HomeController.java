@@ -1,4 +1,4 @@
-package com.habuma.spitter.mvc;
+package com.habuma.spitter.controller;
 
 import java.util.Map;
 
