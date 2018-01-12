@@ -17,7 +17,7 @@ import com.habuma.spitter.domain.Spitter;
  *
  */
 //@Service("jdbcSpitterDao")
-public class JdbcSpitterDao implements SpitterDao {
+public class JdbcSpitterDao  {
 
 	private SimpleJdbcTemplate jdbcTemplate;//jdbc模板
 	//插入spitter语句
@@ -30,7 +30,6 @@ public class JdbcSpitterDao implements SpitterDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	@Override
 	public void addSpitter(Spitter spitter) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("username", spitter.getUsername());
@@ -46,19 +45,16 @@ public class JdbcSpitterDao implements SpitterDao {
 		return 0;
 	}
 
-	@Override
 	public Object getRecentSpittles(int pageNums) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void updateSpitter(Spitter spitter) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public Spitter getSpitterByName(String username) {
 		// TODO Auto-generated method stub
 		return null;

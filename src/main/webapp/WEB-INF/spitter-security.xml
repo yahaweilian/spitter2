@@ -1,15 +1,61 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/context
-		http://www.springframework.org/schema/context/spring-context-3.0.xsd
-		http://www.springframework.org/schema/mvc
-	    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-	    
-	    
-	    
-</beans>
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <!-- /**:Spring Security拦截所有URL请求,并限制只有拥有ROLE_SPITTER角色的认证用户才能访问 ,一般不这样使用-->
+    <!-- <http>元素将会自动创建一个FilterChainProxy(它会委托配置在web.xml中的DelegationFilterProxy)以及链中的所有过滤器Bean -->
+    <!-- auto-config="true"会为我们的应用提供一个 额外的登录页、HTTP基本认证和退出功能 ,也可以自己设置,默认登录页的访问路径是/spring_security_login-->
+    <!--<intercept-url>的规则是从上往下使用的，遵从最开始的  -->
+    <!-- use-expressions="true":启用SpEL -->
+    <!-- requires-channel="https":强制请求使用https -->
+    <http auto-config="true" use-expressions="true">
+       <intercept-url pattern="/home*" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" requires-channel="https"/>
+	   <intercept-url pattern="/spitters/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" requires-channel="https"/>
+	   <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" requires-channel="https"/>
+       <intercept-url pattern="/**" access="ROLE_SPITTER"/>
+       <form-login login-processing-url="/static/j_spring_security_check"
+			login-page="/login"
+			authentication-failure-url="/login?login_error=t" />
+	   <!-- 登录成功后进入的页面 -->		
+	   <logout logout-success-url="/home"/>
+	   <!-- 默认情况，私钥名为SpringSecured,2周内有效,这里设置为spitterKey,4周有效。在cookie内存储一个令牌(token) -->
+	   <remember-me key="spitterKey" token-validity-seconds="2419200" user-service-ref="userService1"/>
+    </http>
+
+    <!-- ①配置内存用户存储库-->
+	<user-service id="userService1">
+		<user name="habuma" password="letmein" authorities="ROLE_SPITTER,ROLE_ADMIN,ROLE_TEST" />
+		<user name="twoqubed" password="longhorns" authorities="ROLE_SPITTER" />
+		<user name="admin" password="admin" authorities="ROLE_ADMIN,ROLE_SPITTER" />
+	</user-service>
+	<authentication-manager>
+		<authentication-provider user-service-ref="userService1" />
+	</authentication-manager>
+	
+	<!-- ②基于数据库进行认证 -->
+	<!-- <jdbc-user-service id="userService" data-source-ref="dataSource_dbcp"
+	users-by-username-query="select username,password,true from spitter where username = ?"
+	authorities-by-username-query="select username,'ROLE_SPITTER' from spitter where username = ?"/> -->
+	<!-- ③基于LDAP进行认证:使用LDAP服务器认证 用户 -->
+	<!-- 声明用户在名为people的组织单元下搜索而不是根目录，组在名为groups的组织单元下搜索 -->
+	<authentication-manager alias="authenticationManager">
+	    <ldap-authentication-provider 
+	          user-search-base="ou=people"
+	          user-search-filter="(uid={0})"
+	          group-search-base="ou=groups"
+	          group-search-filter="member={0}">
+	        <!-- 密码比对 -->
+	        <password-compare hash="md5" password-attribute="passcode"/>  
+	          </ldap-authentication-provider>
+	</authentication-manager>
+	<!-- 引用远程的LDAP服务器 -->
+	<!-- <ldap-server url=""/> -->
+	<!-- 如果没有远程服务器，可以配置嵌入式的LDAP服务器 -->
+	<ldap-server root="dc=habuma,dc=com" ldif="classpath:users.ldif"/>
+	
+	
+</beans:beans>

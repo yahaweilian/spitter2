@@ -75,4 +75,17 @@
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener> -->
 
+    <!-- Spring Security 依赖一系列Servlet过滤器来提供不同的安全特性-->
+    <!--  DelegatingFilterProxy将工作委托给javax.servlet.Filter的实现类-->
+    <!-- Spring Security 将根据filter-name 创建一个ID为 springSecurityFilterChain的过滤器Bean-->
+    <!-- springSecurityFilterChain本身是一个特殊的过滤器，它可以链接任意一个或多个其他的过滤器 -->
+    <filter>
+       <filter-name>springSecurityFilterChain</filter-name>
+       <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 </web-app>

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
+import org.springframework.ui.Model;
 
 import com.habuma.spitter.controller.HomeController;
 import com.habuma.spitter.domain.Spittle;
@@ -27,14 +28,14 @@ public class HomeControllerTest {
 		when(spitterService.getRecentSpittles(25))
 		.thenReturn(expectedSpittles);
 		
-		HomeController controller = new HomeController(spitterService);
+		HomeController controller = new HomeController();
 		
-		HashMap<String, Object> model = new HashMap<>();
-		String viewName = controller.showHomePage(model);
+		Model model =  mock(Model.class);
+		String viewName = controller.showHome(model, null);
 		
 		assertEquals("home", viewName);
 		
-		assertSame(expectedSpittles, model.get("spittles"));
+		assertSame(expectedSpittles,  model.asMap().get("recentSpittles"));
 		
 	}
 

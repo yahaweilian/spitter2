@@ -14,7 +14,7 @@ import com.habuma.spitter.domain.Spitter;
  *
  */
 @Repository("jpaSpitterDao")
-public class JpaSpitterDao implements SpitterDao {
+public class JpaSpitterDao  {
 
 	private static final String RECENT_SPITTLES ="SELECT s FROM Spittle s";
 	private static final String ALL_SPITTERS ="SELECT s FROM Spitter s";
@@ -24,7 +24,6 @@ public class JpaSpitterDao implements SpitterDao {
 	@PersistenceContext
 	private EntityManager em;
 	
-	@Override
 	public void addSpitter(Spitter spitter) {
 		em.persist(spitter);
 	}
@@ -37,19 +36,16 @@ public class JpaSpitterDao implements SpitterDao {
 		em.merge(spitter);
 	}
 
-	@Override
 	public Object getRecentSpittles(int pageNums) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void updateSpitter(Spitter spitter) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public Spitter getSpitterByName(String username) {
 		// TODO Auto-generated method stub
 		return null;
